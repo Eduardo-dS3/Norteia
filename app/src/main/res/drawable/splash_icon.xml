@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Splash icon. Content sits within the centre per the SplashScreen spec. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M54,30 a24,24 0 1,0 0.01,0 Z"
+        android:strokeColor="#33FFFFFF"
+        android:strokeWidth="2"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M54,28 L58,52 L80,54 L58,56 L54,80 L50,56 L28,54 L50,52 Z"
+        android:fillColor="#FFDBE2F1" />
+    <path
+        android:pathData="M54,28 L58,52 L50,52 Z"
+        android:fillColor="#FFFF5B6B" />
+    <path
+        android:pathData="M54,51 a3,3 0 1,0 0.01,0 Z"
+        android:fillColor="#FF44E3C9" />
+</vector>

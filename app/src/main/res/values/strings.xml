@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand name. Keep identical across locales. -->
+    <string name="app_name" translatable="false">Norteia</string>
+
+    <!--
+      The in-app UI text lives inline in the Composables in Brazilian Portuguese,
+      the app's primary market. To add a second language, extract those strings
+      here and provide values-<locale>/strings.xml. Store-listing copy for
+      pt-BR and en-US is in /store.
+    -->
+</resources>

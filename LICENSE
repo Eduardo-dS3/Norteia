@@ -1,0 +1,18 @@
+Copyright (c) 2026 Eduardo. All rights reserved.
+
+This source code is made available for review and for building the "Norteia"
+application for its owner. It is NOT open source.
+
+You may not, without prior written permission from the copyright holder:
+  - redistribute this code or substantial portions of it;
+  - publish a derivative application to any app store;
+  - remove or alter this notice.
+
+The compass rose, the UTM/MGRS conversion, the Sun/Moon astronomy and every
+other part of this codebase are original work. Third-party libraries are used
+under their own licenses (Apache License 2.0 and the Android SDK license),
+listed in the app's "Licenças de código aberto" screen.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.

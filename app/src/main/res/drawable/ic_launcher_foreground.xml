@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- outer ring -->
+    <path
+        android:pathData="M54,22 a32,32 0 1,0 0.01,0 Z"
+        android:strokeColor="#33FFFFFF"
+        android:strokeWidth="2"
+        android:fillColor="#00000000" />
+
+    <!-- four-point compass star (light) -->
+    <path
+        android:pathData="M54,20 L59.5,48.5 L88,54 L59.5,59.5 L54,88 L48.5,59.5 L20,54 L48.5,48.5 Z"
+        android:fillColor="#FFDBE2F1" />
+
+    <!-- north point (accent red) -->
+    <path
+        android:pathData="M54,20 L59.5,48.5 L48.5,48.5 Z"
+        android:fillColor="#FFFF5B6B" />
+
+    <!-- hub -->
+    <path
+        android:pathData="M54,50 a4,4 0 1,0 0.01,0 Z"
+        android:fillColor="#FF44E3C9" />
+</vector>

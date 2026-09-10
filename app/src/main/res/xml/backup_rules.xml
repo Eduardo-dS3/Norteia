@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Only the small preferences DataStore is eligible for backup (chosen units,
+  toggles). There is no personal or location data stored anywhere to back up.
+-->
+<full-backup-content>
+    <include domain="file" path="datastore/" />
+</full-backup-content>

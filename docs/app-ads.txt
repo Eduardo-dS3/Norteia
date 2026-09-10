@@ -1,0 +1,15 @@
+# app-ads.txt — NÃO usar ainda (v1 não tem anúncios).
+#
+# Quando você criar a conta no Google AdMob e um bloco de anúncios:
+#   1. Substitua a linha abaixo pelo seu ID de editor real.
+#   2. O arquivo PRECISA ficar na RAIZ do domínio declarado como "site do
+#      desenvolvedor" na ficha da Play Store, ex.: https://SEU-DOMINIO/app-ads.txt
+#      GitHub Pages de PROJETO (eduardo-ds3.github.io/Norteia/) NÃO serve a raiz.
+#      Opções:
+#        a) usar um domínio próprio (recomendado) e apontá-lo aqui; ou
+#        b) criar o repositório de site de usuário "eduardo-ds3.github.io" e
+#           colocar o app-ads.txt na raiz dele -> https://eduardo-ds3.github.io/app-ads.txt
+#   3. Declare esse mesmo site na Play Console (Presença na loja > detalhes).
+#
+# Formato (exemplo — troque pub-0000000000000000):
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
