@@ -1,7 +1,19 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+}
+
+// Real release signing is configured via keystore.properties (git-ignored).
+// See docs/RELEASE_CHECKLIST.md. Loaded here, at the top level, so it's never
+// null-unsafe inside the `android {}` DSL below.
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) {
+        keystorePropsFile.inputStream().use { load(it) }
+    }
 }
 
 android {
@@ -21,17 +33,14 @@ android {
     }
 
     signingConfigs {
-        // Real release signing is configured via keystore.properties (git-ignored).
-        // See docs/RELEASE_CHECKLIST.md. Left unconfigured here on purpose so the
-        // repo never carries signing material.
-        create("release") {
-            val propsFile = rootProject.file("keystore.properties")
-            if (propsFile.exists()) {
-                val props = java.util.Properties().apply { load(propsFile.inputStream()) }
-                storeFile = file(props.getProperty("storeFile"))
-                storePassword = props.getProperty("storePassword")
-                keyAlias = props.getProperty("keyAlias")
-                keyPassword = props.getProperty("keyPassword")
+        // Left unconfigured (falls back to debug signing) when there's no
+        // keystore.properties yet — keeps `assembleRelease` runnable out of the box.
+        if (keystorePropsFile.exists()) {
+            create("release") {
+                storeFile = file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
             }
         }
     }
@@ -48,8 +57,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-            val propsFile = rootProject.file("keystore.properties")
-            if (propsFile.exists()) {
+            if (keystorePropsFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
             }
         }

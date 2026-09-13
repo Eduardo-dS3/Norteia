@@ -78,7 +78,8 @@ class MainViewModel(
     }
 
     private val compassFlow: Flow<CompassReading> = compassSource.readings
-    private val levelFlow: Flow<LevelReading?> = levelSource.readings.catch { emit(null) }
+    private val levelFlow: Flow<LevelReading?> =
+        levelSource.readings.map<LevelReading, LevelReading?> { it }.catch { emit(null) }
 
     private data class Sensors(
         val compass: CompassReading,
