@@ -1,8 +1,7 @@
 # Norteia
 
 Bússola + GPS de tela única para Android. Nativo, offline, sem cadastro, sem
-rastreamento. Feito para publicar na Google Play e, numa versão futura,
-monetizar com um único banner discreto.
+rastreamento.
 
 <p align="center"><em>Kotlin · Jetpack Compose · Material 3 · min SDK 26 · target SDK 36</em></p>
 
