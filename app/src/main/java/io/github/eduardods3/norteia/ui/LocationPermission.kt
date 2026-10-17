@@ -10,6 +10,7 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,6 +53,15 @@ fun rememberLocationPermissionController(onGrantedChange: (Boolean) -> Unit): Lo
     val permanentlyDenied = requestedOnce && !granted && activity != null &&
         !activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
 
+    // Push the current OS permission state to the ViewModel the instant this
+    // composable first runs — don't wait for the first ON_RESUME. Without
+    // this, a cold start can briefly show "allow location" even though the
+    // OS already granted it in an earlier session, because the ViewModel's
+    // own copy of the flag hasn't caught up yet.
+    LaunchedEffect(Unit) {
+        onGrantedChange(granted)
+    }
+
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
     ) { result ->
@@ -78,7 +88,15 @@ fun rememberLocationPermissionController(onGrantedChange: (Boolean) -> Unit): Lo
         rationaleVisible = rationaleVisible,
         permanentlyDenied = permanentlyDenied,
         request = {
-            if (granted) onGrantedChange(true) else rationaleVisible = true
+            // Re-check live rather than trust the cached `granted`, in case it
+            // was granted in Settings without a resume event in between.
+            val nowGranted = context.hasLocationPermission()
+            if (nowGranted) {
+                granted = true
+                onGrantedChange(true)
+            } else {
+                rationaleVisible = true
+            }
         },
         confirmRationale = {
             rationaleVisible = false

@@ -22,8 +22,12 @@ import kotlin.math.roundToInt
 
 /**
  * Secondary read-outs. Everything here is computed on-device and offline:
- * altitude/speed from the fix, declination from Android's built-in World
- * Magnetic Model, Sun/Moon from [SunMoon].
+ * altitude from the fix, declination from Android's built-in World Magnetic
+ * Model, Sun/Moon from [SunMoon].
+ *
+ * Speed is deliberately not shown here: GPS speed is noisy and meaningless
+ * while standing still (the usual way people check this screen), so a
+ * jittery "0 km/h" / "3 km/h" reads as broken rather than useful.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -31,7 +35,6 @@ fun MetricsGrid(state: MainUiState, modifier: Modifier = Modifier) {
     val dash = MainUiState.EMPTY_VALUE
 
     val altitude = state.altitudeM?.let { "${it.roundToInt()} m" } ?: dash
-    val speed = state.speedKmh?.let { String.format(Locale.US, "%.0f km/h", it) } ?: dash
     val declination = state.declinationDeg?.let {
         val dir = if (it >= 0) "L" else "O"
         String.format(Locale.US, "%.1f° %s", abs(it), dir)
@@ -55,7 +58,6 @@ fun MetricsGrid(state: MainUiState, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         MetricTile("Altitude", altitude, "Acima do elipsoide", Modifier.tileWidth())
-        MetricTile("Velocidade", speed, "Sobre o solo", Modifier.tileWidth())
         MetricTile("Declinação", declination, "Magnética vs. verdadeira", Modifier.tileWidth())
         if (state.showSunMoon) {
             MetricTile("Sol", sunValue, sunSub, Modifier.tileWidth())

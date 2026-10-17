@@ -15,6 +15,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Normal permission, no runtime prompt. Used only for the short "tick"
+         when the heading crosses a cardinal point (can be turned off in
+         Options). Compose's performHapticFeedback() is too unreliable for
+         this — many OEMs mute it unless "touch feedback" is on, even with
+         general vibration enabled — so we drive the Vibrator directly. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <!-- Hardware is used when present but not required, so GPS-only tablets and
          compass-less devices can still install and use the parts that work. -->
     <uses-feature

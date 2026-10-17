@@ -65,7 +65,7 @@ fun CompassScreen(vm: MainViewModel, modifier: Modifier = Modifier) {
 
     val heading by rememberSmoothedAngle(state.headingDeg)
 
-    CardinalHaptics(state.headingDeg, state.hapticOnCardinals)
+    CardinalHaptics(state.headingDeg, state.hapticOnCardinals && state.headingAvailable)
 
     Column(modifier.fillMaxSize()) {
         // --- top bar ------------------------------------------------------
@@ -110,6 +110,7 @@ fun CompassScreen(vm: MainViewModel, modifier: Modifier = Modifier) {
                 )
                 HeadingReadout(
                     headingDeg = heading,
+                    headingAvailable = state.headingAvailable,
                     usingTrueNorth = state.northReference == NorthReference.TRUE,
                     trueNorthAvailable = state.declinationDeg != null,
                     onToggleNorthReference = vm::toggleNorthReference,

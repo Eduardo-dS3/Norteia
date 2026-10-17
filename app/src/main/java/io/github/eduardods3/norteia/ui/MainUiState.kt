@@ -17,6 +17,9 @@ enum class FixQuality { NONE, POOR, FAIR, GOOD }
  */
 data class MainUiState(
     // --- heading -----------------------------------------------------------
+    /** False until the first real sensor event has arrived. [headingDeg] is a
+     *  meaningless placeholder until then — the UI must not present it as 0°. */
+    val headingAvailable: Boolean = false,
     val headingDeg: Float = 0f,
     val magneticHeadingDeg: Float = 0f,
     val northReference: NorthReference = NorthReference.TRUE,
@@ -57,7 +60,6 @@ data class MainUiState(
     val locationServicesOff: Boolean = false,
 ) {
     val hasFix: Boolean get() = position != null
-    val speedKmh: Float? get() = speedMps?.let { it * 3.6f }
 
     companion object {
         const val EMPTY_VALUE = "—"

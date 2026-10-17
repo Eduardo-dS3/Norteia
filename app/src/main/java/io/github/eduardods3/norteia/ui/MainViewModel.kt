@@ -190,6 +190,7 @@ class MainViewModel(
         }
 
         return MainUiState(
+            headingAvailable = true,
             headingDeg = heading,
             magneticHeadingDeg = magnetic,
             northReference = prefs.northReference,

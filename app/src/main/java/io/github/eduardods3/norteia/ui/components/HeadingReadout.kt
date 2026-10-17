@@ -28,6 +28,7 @@ import kotlin.math.roundToInt
 @Composable
 fun HeadingReadout(
     headingDeg: Float,
+    headingAvailable: Boolean,
     usingTrueNorth: Boolean,
     trueNorthAvailable: Boolean,
     onToggleNorthReference: () -> Unit,
@@ -38,20 +39,28 @@ fun HeadingReadout(
 
     Column(
         modifier = modifier.semantics {
-            contentDescription = "Rumo $degrees graus, ${Cardinals.name(headingDeg)}"
+            contentDescription = if (headingAvailable) {
+                "Rumo $degrees graus, ${Cardinals.name(headingDeg)}"
+            } else {
+                "Aguardando leitura da bússola"
+            }
         },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Text(
-            text = "$degrees°",
+            text = if (headingAvailable) "$degrees°" else "—°",
             style = HeadingDisplay,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = if (headingAvailable) {
+                MaterialTheme.colorScheme.onSurface
+            } else {
+                MaterialTheme.colorScheme.onSurfaceVariant
+            },
         )
         Text(
-            text = Cardinals.name(headingDeg).uppercase(),
+            text = if (headingAvailable) Cardinals.name(headingDeg).uppercase() else "SINCRONIZANDO…",
             style = MaterialTheme.typography.labelLarge,
-            color = extra.auroraStart,
+            color = if (headingAvailable) extra.auroraStart else MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
         Surface(
