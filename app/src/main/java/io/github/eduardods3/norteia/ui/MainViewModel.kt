@@ -1,6 +1,10 @@
 package io.github.eduardods3.norteia.ui
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.GeomagneticField
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -46,6 +50,7 @@ import kotlinx.coroutines.delay
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModel(
+    context: Context,
     private val settings: SettingsRepository,
     private val locationSource: LocationSource,
     private val gnssSource: GnssStatusSource,
@@ -53,7 +58,14 @@ class MainViewModel(
     levelSource: LevelSource,
 ) : ViewModel() {
 
-    private val permissionGranted = MutableStateFlow(false)
+    // Seeded with the real OS permission state right away — don't default to
+    // "not granted" and wait on the UI layer to report otherwise. The UI's
+    // own sync (LaunchedEffect / resume / the system permission dialog
+    // callback) still runs and keeps this current for grants/denials that
+    // happen while the screen is open; this just removes any dependency on
+    // Compose effect timing for the (extremely common) case where the OS
+    // already granted the permission in an earlier session.
+    private val permissionGranted = MutableStateFlow(context.hasLocationPermissionNow())
     private val servicesEnabled = MutableStateFlow(true)
 
     /** 30 s heartbeat so Sun/Moon and the "fix age" stay fresh when idle. */
@@ -232,6 +244,7 @@ class MainViewModel(
                 val c = app.container
                 @Suppress("UNCHECKED_CAST")
                 return MainViewModel(
+                    context = app,
                     settings = c.settings,
                     locationSource = c.locationSource,
                     gnssSource = c.gnssSource,
@@ -242,3 +255,9 @@ class MainViewModel(
         }
     }
 }
+
+private fun Context.hasLocationPermissionNow(): Boolean =
+    ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+        PackageManager.PERMISSION_GRANTED ||
+        ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+        PackageManager.PERMISSION_GRANTED

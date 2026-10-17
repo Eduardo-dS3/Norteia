@@ -30,3 +30,7 @@ Thumbs.db
 # Build outputs
 app/release/
 app/debug/
+
+# Store graphics (icon/feature graphic/screenshots) — generated locally,
+# uploaded straight to Play Console, not needed in version control.
+/store/graphics/
