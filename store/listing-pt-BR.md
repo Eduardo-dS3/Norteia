@@ -63,4 +63,4 @@ satélites, GNSS, trilha, camping, offline
 Ferramentas
 
 ## E-mail de contato
-(defina um e-mail público — o mesmo da Política de Privacidade)
+norteiabussola@gmail.com

@@ -31,8 +31,8 @@ sem advogado:
     responsabilidade por decisões tomadas com base nele (nos limites do CDC).
   - Permissões mínimas e justificadas (só localização em primeiro plano).
   - Código e arte 100% originais (sem assets de terceiros plagiados).
-- [ ] **Trocar `SEU-EMAIL-PUBLICO@exemplo.com`** em `privacy-policy.html` **e**
-  `terms-of-use.html` por um e-mail real que você queira expor publicamente.
+- [x] E-mail de contato definido: `norteiabussola@gmail.com` (já atualizado em
+  `privacy-policy.html`, `terms-of-use.html` e `store/listing-pt-BR.md`).
 - [ ] **Conferir o nome "Norteia"** na busca de marcas do INPI
   (https://busca.inpi.gov.br/pePI/) antes de investir em marketing pesado —
   uma busca geral não encontrou conflito, mas só o INPI é autoritativo.
@@ -84,7 +84,7 @@ sem advogado:
 - [ ] **URL da Política de Privacidade**: `https://eduardo-ds3.github.io/Norteia/privacy-policy.html`
   (publique a pasta `docs/` no GitHub Pages: *Settings > Pages > Deploy from a branch > main /docs*).
 - [ ] **Termos de Uso** (opcional na ficha, mas linkado dentro do app): `https://eduardo-ds3.github.io/Norteia/terms-of-use.html`.
-- [ ] Já trocou os e-mails placeholder? Ver item 0.5.
+- [x] E-mails de contato já trocados — ver item 0.5.
 
 ## 5. Conteúdo do app (aba obrigatória)
 
