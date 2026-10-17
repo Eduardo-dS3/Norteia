@@ -2,9 +2,12 @@ package io.github.eduardods3.norteia.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +32,6 @@ import kotlin.math.roundToInt
  * while standing still (the usual way people check this screen), so a
  * jittery "0 km/h" / "3 km/h" reads as broken rather than useful.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MetricsGrid(state: MainUiState, modifier: Modifier = Modifier) {
     val dash = MainUiState.EMPTY_VALUE
@@ -52,21 +54,38 @@ fun MetricsGrid(state: MainUiState, modifier: Modifier = Modifier) {
     val moonValue = moon?.let { "${it.position.azimuthDeg.roundToInt()}°" } ?: dash
     val moonSub = moon?.phase?.label ?: "Azimute da Lua"
 
-    FlowRow(
+    Column(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        MetricTile("Altitude", altitude, "Acima do elipsoide", Modifier.tileWidth())
-        MetricTile("Declinação", declination, "Magnética vs. verdadeira", Modifier.tileWidth())
+        TileRow {
+            MetricTile("Altitude", altitude, "Acima do elipsoide", Modifier.weight(1f))
+            MetricTile("Declinação", declination, "Magnética vs. verdadeira", Modifier.weight(1f))
+        }
         if (state.showSunMoon) {
-            MetricTile("Sol", sunValue, sunSub, Modifier.tileWidth())
-            MetricTile("Lua", moonValue, moonSub, Modifier.tileWidth())
+            TileRow {
+                MetricTile("Sol", sunValue, sunSub, Modifier.weight(1f))
+                MetricTile("Lua", moonValue, moonSub, Modifier.weight(1f))
+            }
         }
     }
 }
 
-private fun Modifier.tileWidth(): Modifier = this.fillMaxWidth(0.47f)
+/**
+ * A row of tiles that are always the same height as each other — the taller
+ * one's content sets the height, and the other stretches to match, no matter
+ * how many lines its caption wraps to.
+ */
+@Composable
+private fun TileRow(content: @Composable RowScope.() -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        content = { content() },
+    )
+}
 
 @Composable
 private fun MetricTile(
@@ -76,7 +95,7 @@ private fun MetricTile(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = modifier,
+        modifier = modifier.fillMaxHeight(),
         color = MaterialTheme.colorScheme.surface,
         shape = RoundedCornerShape(16.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),

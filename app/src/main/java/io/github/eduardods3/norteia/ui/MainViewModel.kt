@@ -190,15 +190,17 @@ class MainViewModel(
         }
 
         return MainUiState(
-            headingAvailable = true,
+            headingAvailable = s.compass.hasReading,
             headingDeg = heading,
             magneticHeadingDeg = magnetic,
             northReference = prefs.northReference,
             usingTrueNorth = usingTrue,
             declinationDeg = declination,
             compassAccuracy = s.compass.accuracy,
-            needsCalibration = s.compass.accuracy == CompassAccuracy.UNRELIABLE ||
-                s.compass.accuracy == CompassAccuracy.LOW,
+            needsCalibration = s.compass.hasReading && (
+                s.compass.accuracy == CompassAccuracy.UNRELIABLE ||
+                    s.compass.accuracy == CompassAccuracy.LOW
+                ),
             phoneTilted = s.compass.tiltedTooFar,
             position = pos,
             horizontalAccuracyM = accuracyM,

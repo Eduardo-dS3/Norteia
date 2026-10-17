@@ -24,6 +24,9 @@ data class CompassReading(
     val accuracy: CompassAccuracy,
     /** True while the phone is tilted too far for a trustworthy reading. */
     val tiltedTooFar: Boolean,
+    /** False only for the synthetic placeholder sent before the first real
+     *  sensor callback arrives — see [CompassSource.readings]. */
+    val hasReading: Boolean = true,
 )
 
 /**
@@ -67,6 +70,13 @@ class CompassSource(context: Context) {
             awaitClose { }
             return@callbackFlow
         }
+
+        // A real sensor callback can take a second or more to arrive on a cold
+        // app start (fresh process, sensor HAL warming up). Seed a placeholder
+        // right away so downstream combine()s aren't starved waiting on this
+        // one flow — everything else (permission, settings) would otherwise
+        // sit frozen on its own stale default for that whole window too.
+        trySend(CompassReading(0f, CompassAccuracy.LOW, tiltedTooFar = false, hasReading = false))
 
         val rotationMatrix = FloatArray(9)
         val remapped = FloatArray(9)

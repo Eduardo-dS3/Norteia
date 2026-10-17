@@ -17,6 +17,9 @@ data class LevelReading(
     /** Left-right tilt in degrees. 0 = flat. */
     val rollDeg: Float,
     val hasSensor: Boolean,
+    /** False only for the synthetic placeholder sent before the first real
+     *  sensor callback arrives — see [LevelSource.readings]. */
+    val hasReading: Boolean = true,
 ) {
     /** Distance of the bubble from dead-centre, in degrees. */
     val offsetDeg: Float get() = sqrt(pitchDeg * pitchDeg + rollDeg * rollDeg)
@@ -46,6 +49,10 @@ class LevelSource(context: Context) {
             awaitClose { }
             return@callbackFlow
         }
+
+        // Seed immediately so this flow never starves a downstream combine()
+        // while waiting for the first real sensor callback.
+        trySend(LevelReading(0f, 0f, hasSensor = true, hasReading = false))
 
         val needsSmoothing = gravity == null
         val g = FloatArray(3)
