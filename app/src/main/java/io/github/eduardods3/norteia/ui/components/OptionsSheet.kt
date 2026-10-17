@@ -28,6 +28,7 @@ import io.github.eduardods3.norteia.ui.MainUiState
 import io.github.eduardods3.norteia.ui.theme.NorteiaTheme
 
 private const val PRIVACY_URL = "https://eduardo-ds3.github.io/Norteia/privacy-policy.html"
+private const val TERMS_URL = "https://eduardo-ds3.github.io/Norteia/terms-of-use.html"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,6 +70,9 @@ fun OptionsSheet(
 
             LinkRow("Política de Privacidade") {
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_URL)))
+            }
+            LinkRow("Termos de Uso") {
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_URL)))
             }
             LinkRow("Licenças de código aberto", onOpenLicenses)
 

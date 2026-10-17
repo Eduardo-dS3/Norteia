@@ -15,6 +15,30 @@ em política. Datas e regras conferidas em setembro de 2026.
   `.kt` (o Android Studio faz tudo junto em *Refactor > Rename* no pacote).
 - [ ] Nome de exibição: `Norteia` (`app_name` em `res/values/strings.xml`).
 
+## 0.5. Antes de tudo (parte 2): risco jurídico — o que é real e o que não é
+
+Isto não é aconselhamento jurídico, só o retrato honesto do que dá pra saber
+sem advogado:
+
+- **Custo certo**: a taxa única de **US$ 25** da conta Google Play (item 1).
+  Não existe outra cobrança obrigatória — o app não tem servidor, API paga nem
+  anúncios na v1.
+- **"Posso ser processado?"**: risco **baixo, mas não zero**, como em qualquer
+  app publicado. O que reduz o risco, já no repositório:
+  - Nenhum dado pessoal coletado/transmitido (`docs/privacy-policy.html`).
+  - `docs/terms-of-use.html` deixa claro que o Norteia é uma ferramenta de
+    referência, não um instrumento certificado de navegação, e limita
+    responsabilidade por decisões tomadas com base nele (nos limites do CDC).
+  - Permissões mínimas e justificadas (só localização em primeiro plano).
+  - Código e arte 100% originais (sem assets de terceiros plagiados).
+- [ ] **Trocar `SEU-EMAIL-PUBLICO@exemplo.com`** em `privacy-policy.html` **e**
+  `terms-of-use.html` por um e-mail real que você queira expor publicamente.
+- [ ] **Conferir o nome "Norteia"** na busca de marcas do INPI
+  (https://busca.inpi.gov.br/pePI/) antes de investir em marketing pesado —
+  uma busca geral não encontrou conflito, mas só o INPI é autoritativo.
+- [ ] Ler o **Developer Distribution Agreement** do Google ao criar a conta —
+  é um contrato que só você pode aceitar (sua conta, sua assinatura).
+
 ## 1. Conta Google Play Console
 
 - [ ] Criar conta de desenvolvedor (**US$ 25**, uma vez) e concluir a
@@ -59,7 +83,8 @@ em política. Datas e regras conferidas em setembro de 2026.
 - [ ] Categoria: *Ferramentas* (Tools). Tags: bússola, GPS, navegação.
 - [ ] **URL da Política de Privacidade**: `https://eduardo-ds3.github.io/Norteia/privacy-policy.html`
   (publique a pasta `docs/` no GitHub Pages: *Settings > Pages > Deploy from a branch > main /docs*).
-- [ ] Trocar `SEU-EMAIL-PUBLICO@exemplo.com` na política por um e-mail real de contato.
+- [ ] **Termos de Uso** (opcional na ficha, mas linkado dentro do app): `https://eduardo-ds3.github.io/Norteia/terms-of-use.html`.
+- [ ] Já trocou os e-mails placeholder? Ver item 0.5.
 
 ## 5. Conteúdo do app (aba obrigatória)
 
